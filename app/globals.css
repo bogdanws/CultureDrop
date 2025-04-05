@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @theme inline {
@@ -12,16 +15,94 @@
   --font-mono: var(--font-geist-mono);
 }
 
-html {
-  transition: background-color 0.3s ease;
+@custom-variant dark (&:is(.dark *));
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
 body {
-  transition: color 0.3s ease, background-color 0.3s ease;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
-@custom-variant dark (&:is(.dark *));
+@layer components {
+  /* Dropdown menu styling */
+  .dropdown-menu {
+    @apply absolute left-0 mt-2 w-48 rounded-none shadow-lg py-2 bg-white dark:bg-zinc-800 ring-1 ring-black/5 dark:ring-white/10 transform origin-top-left transition-all duration-300 ease-out overflow-hidden;
+  }
 
+  .dropdown-menu-open {
+    @apply opacity-100 scale-100 max-h-96;
+  }
+
+  .dropdown-menu-closed {
+    @apply opacity-0 scale-95 max-h-0 pointer-events-none;
+  }
+
+  .dropdown-menu-item {
+    @apply block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors relative;
+  }
+  
+  .dropdown-menu-item::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 ease-in-out;
+  }
+  
+  .dropdown-menu-item:hover::after {
+    @apply w-full;
+  }
+  
+  /* Fancy gradient animation for dropdown menu */
+  .dropdown-menu::before {
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-500/10 to-transparent;
+  }
+  
+  .dropdown-highlight {
+    @apply absolute top-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600;
+  }
+  
+  /* Mobile menu styling */
+  .mobile-menu {
+    @apply md:hidden bg-white dark:bg-zinc-900 shadow-lg transform transition-all duration-300 ease-in-out;
+  }
+  
+  .mobile-menu-open {
+    @apply h-auto opacity-100;
+  }
+  
+  .mobile-menu-closed {
+    @apply h-0 opacity-0 overflow-hidden;
+  }
+  
+  .mobile-submenu {
+    @apply transition-all duration-300 ease-in-out overflow-hidden;
+  }
+  
+  .mobile-submenu-open {
+    @apply max-h-60 opacity-100;
+  }
+  
+  .mobile-submenu-closed {
+    @apply max-h-0 opacity-0;
+  }
+  
+  /* Background image for Tokyo */
+  .image_tokyo {
+    background-image: url('https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2036&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
 
 .image_tokyo {
   background-image: url("/japan_day.jpg");
