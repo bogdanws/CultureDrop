@@ -5,13 +5,55 @@ import ToggleDarkMode from "./ToggleDarkMode";
 
 type ClothingCategory = "J-pop" | "Rock" | "Heavy Metal" | "Folk music";
 
-export default function Navbar() {
+interface NavbarProps {
+  navbarTitleOpacity?: number;
+}
+
+export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
   const [womenMenuOpen, setWomenMenuOpen] = useState(false);
   const [menMenuOpen, setMenMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [scrollOpacity, setScrollOpacity] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const womenRef = useRef<HTMLDivElement>(null);
   const menRef = useRef<HTMLDivElement>(null);
   const categories: ClothingCategory[] = ["J-pop", "Rock", "Heavy Metal", "Folk music"];
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    const scrollThreshold = 100;
+    const handleScroll = () => {
+      const opacity = Math.min(window.scrollY / scrollThreshold, 1);
+      setScrollOpacity(opacity);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+
+    const checkDarkMode = () => {
+        setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    checkDarkMode();
+
+    const observer = new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                checkDarkMode();
+                break;
+            }
+        }
+    });
+    observer.observe(document.documentElement, { attributes: true });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, []);
 
   const toggleWomenMenu = () => {
     setWomenMenuOpen(!womenMenuOpen);
@@ -27,7 +69,6 @@ export default function Navbar() {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (womenRef.current && !womenRef.current.contains(event.target as Node)) {
@@ -44,23 +85,34 @@ export default function Navbar() {
     };
   }, []);
 
+  const getNavbarTitleClass = () => {
+    if (windowWidth < 640) {
+      return "text-sm";
+    } 
+    return "text-xl";
+  };
+
+  const baseRgb = isDarkMode ? '24, 24, 27' : '255, 255, 255';
+  const finalAlpha = 0.2 + scrollOpacity * 0.6;
+  const backgroundColor = `rgba(${baseRgb}, ${finalAlpha})`;
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/20 dark:bg-zinc-900/20 backdrop-blur-sm shadow-sm">
+    <nav className={`fixed top-0 w-full z-50 backdrop-blur-sm shadow-sm`} style={{ backgroundColor }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo/Home */}
           <Link href="/" className="flex-shrink-0 flex items-center">
-            <span className="text-black dark:text-white font-bold text-xl">TOKYO STYLE</span>
+            <span className={`text-black dark:text-white font-bold ${getNavbarTitleClass()}`}>
+              <span 
+                className="opacity-0 transition-opacity duration-300" 
+                style={{ opacity: navbarTitleOpacity }}
+              >
+                Tokyo
+              </span>
+            </span>
           </Link>
 
-          {/* Navigation Links */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
-              <Link href="/" className="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium">
-                Home
-              </Link>
-
-              {/* Women's Menu */}
               <div ref={womenRef} className="relative group">
                 <button
                   onClick={toggleWomenMenu}
@@ -86,7 +138,6 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Men's Menu */}
               <div ref={menRef} className="relative group">
                 <button
                   onClick={toggleMenMenu}
@@ -112,7 +163,6 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Cart */}
               <Link href="/cart" className="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium">
                 <div className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -124,11 +174,9 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Dark Mode Toggle */}
           <div className="flex items-center">
             <ToggleDarkMode />
             
-            {/* Mobile menu button */}
             <div className="md:hidden ml-4">
               <button 
                 onClick={toggleMobileMenu}
@@ -143,7 +191,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu, show/hide based on menu state */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'mobile-menu-open' : 'mobile-menu-closed'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link 
@@ -153,7 +200,6 @@ export default function Navbar() {
             Home
           </Link>
           
-          {/* Mobile Women's Menu */}
           <div>
             <button
               onClick={toggleWomenMenu}
@@ -180,7 +226,6 @@ export default function Navbar() {
             </div>
           </div>
           
-          {/* Mobile Men's Menu */}
           <div>
             <button
               onClick={toggleMenMenu}
@@ -207,7 +252,6 @@ export default function Navbar() {
             </div>
           </div>
           
-          {/* Mobile Cart */}
           <Link 
             href="/cart" 
             className="flex items-center px-3 py-2 rounded-none text-base font-medium text-black dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
