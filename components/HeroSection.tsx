@@ -64,7 +64,7 @@ export default function HeroSection() {
     ['0 4px 8px rgba(0, 0, 0, 0.5)', '0 8px 16px rgba(0, 0, 0, 0.2)']
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Set initial window width
     setWindowWidth(window.innerWidth);
 
@@ -88,7 +88,7 @@ export default function HeroSection() {
         });
         setTimeout(() => setIsScrolling(false), 800);
       } 
-      /*// Scrolling up while just below hero section
+      // Scrolling up while just below hero section
       else if (e.deltaY < 0 && window.scrollY <= heroHeight + 100 && window.scrollY > 0) {
         e.preventDefault();
         setIsScrolling(true);
@@ -97,7 +97,7 @@ export default function HeroSection() {
           behavior: 'smooth'
         });
         setTimeout(() => setIsScrolling(false), 800);
-      }*/
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -107,7 +107,7 @@ export default function HeroSection() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('wheel', handleWheel);
     };
-  }, [isScrolling]);
+  }, [isScrolling]);*/
 
   // Adjust position based on screen size
   const getTextX = () => {
