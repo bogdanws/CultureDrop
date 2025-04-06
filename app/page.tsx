@@ -19,7 +19,6 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-zinc-900">
       <HeroSection />
       
-      
       {/* Music Genres Section */}
       <div className="py-16 md:pt-32 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-zinc-800">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">

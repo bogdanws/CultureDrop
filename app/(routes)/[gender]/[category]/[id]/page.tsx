@@ -20,6 +20,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>('M');
   const { addToCart } = useCartContext();
   const router = useRouter();
   
@@ -85,12 +86,15 @@ export default function ProductPage({ params }: ProductPageProps) {
       price: product.price,
       image: product.images[0],
       gender: gender as 'men' | 'women',
-      category
+      category,
+      size: selectedSize
     });
     
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
+
+  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   
   return (
     <div className="min-h-screen pt-20">
@@ -143,7 +147,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
             <div className="mt-4">
               <p className="text-3xl tracking-tight text-gray-900 dark:text-white">${product.price}</p>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Free shipping on all domestic orders</p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">+ shipping</p>
             </div>
 
             <div className="mt-8">
@@ -157,17 +161,51 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
             </div>
 
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Size</h3>
+              <div className="mt-4 grid grid-cols-3 sm:grid-cols-6 gap-2">
+                {sizes.map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => setSelectedSize(size)}
+                    className={`flex items-center justify-center rounded-md border py-3 sm:py-2 px-3 text-sm font-medium transition-all duration-200 ${
+                      selectedSize === size
+                        ? 'border-blue-600 bg-blue-600 text-white'
+                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-zinc-800 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-zinc-700'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8">
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className={`w-full rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white transition-all duration-300 ${
-                  addedToCart 
-                    ? 'bg-green-600 hover:bg-green-700' 
+                className={`w-full rounded-md py-3 px-4 sm:px-8 flex items-center justify-center text-base font-medium text-white transition-all duration-300 ${
+                  addedToCart
+                    ? 'bg-green-600 hover:bg-green-700'
                     : 'bg-blue-600 hover:bg-blue-700'
                 }`}
               >
-                {addedToCart ? 'Added to cart!' : 'Add to cart'}
+                {addedToCart ? (
+                  <span className="flex items-center">
+                    <span>Added to cart!</span>
+                    <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-800 text-white">
+                      {selectedSize}
+                    </span>
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    <span>Add to cart</span>
+                    <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-800 text-white">
+                      {selectedSize}
+                    </span>
+                  </span>
+                )}
               </button>
               
               <div className="mt-4 flex justify-center">

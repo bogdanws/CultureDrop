@@ -6,11 +6,12 @@ interface CartContextType {
   cartItems: CartItem[];
   isLoading: boolean;
   addToCart: (item: Omit<CartItem, 'quantity'>) => void;
-  updateQuantity: (itemId: number, gender: string, category: string, newQuantity: number) => void;
-  removeItem: (itemId: number, gender: string, category: string) => void;
+  updateQuantity: (itemId: number, gender: string, category: string, size: string, newQuantity: number) => void;
+  removeItem: (itemId: number, gender: string, category: string, size: string) => void;
   clearCart: () => void;
   getCartCount: () => number;
   getSubtotal: () => number;
+  hasFreeDisc: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
