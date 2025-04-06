@@ -116,7 +116,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
               <div ref={womenRef} className="relative group">
                 <button
                   onClick={toggleWomenMenu}
-                  className="relative text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium flex items-center"
+                  className="relative text-black dark:text-white hover:text-blue-800 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium flex items-center"
                 >
                   Women
                   <svg xmlns="http://www.w3.org/2000/svg" className={`ml-1 h-4 w-4 transition-transform duration-300 ${womenMenuOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,7 +141,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
               <div ref={menRef} className="relative group">
                 <button
                   onClick={toggleMenMenu}
-                  className="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium flex items-center"
+                  className="text-black dark:text-white hover:text-blue-800 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium flex items-center"
                 >
                   Men
                   <svg xmlns="http://www.w3.org/2000/svg" className={`ml-1 h-4 w-4 transition-transform duration-300 ${menMenuOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -163,7 +163,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                 </div>
               </div>
 
-              <Link href="/cart" className="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium">
+              <Link href="/cart" className="text-black dark:text-white hover:text-blue-800 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium">
                 <div className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -180,7 +180,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
             <div className="md:hidden ml-4">
               <button 
                 onClick={toggleMobileMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400"
+                className="inline-flex items-center justify-center p-2 rounded-md text-black dark:text-white hover:text-blue-700 dark:hover:text-blue-400"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />

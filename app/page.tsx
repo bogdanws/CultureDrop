@@ -39,9 +39,10 @@ export default function Home() {
       {/* Brand Story Section */}
       <div className="flex flex-col items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-white dark:bg-zinc-900">
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 text-black dark:text-white">Our Brand</h2>
-        <p className="text-center max-w-2xl text-gray-600 dark:text-gray-300 mb-6">
-          Experience the perfect blend of modern fashion with traditional Japanese aesthetics. 
-          Our collections are designed to bring Tokyo's unique style to your everyday wardrobe.
+        <p className="text-center max-w-2xl text-gray-700 dark:text-gray-300 mb-6">
+          Experience the perfect blend of diverse music genres with fashion. 
+          Our collections are inspired by the rhythms of folk, rock, rap, and J-Pop, 
+          bringing a unique harmony of style to your everyday wardrobe.
         </p>
       </div>
     </div>

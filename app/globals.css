@@ -36,7 +36,6 @@ body {
 }
 
 @layer components {
-  /* Dropdown menu styling */
   .dropdown-menu {
     @apply absolute left-0 mt-2 w-48 rounded-none shadow-lg py-2 bg-white dark:bg-zinc-800 ring-1 ring-black/5 dark:ring-white/10 transform origin-top-left transition-all duration-300 ease-out overflow-hidden;
   }
@@ -61,7 +60,6 @@ body {
     @apply w-full;
   }
   
-  /* Fancy gradient animation for dropdown menu */
   .dropdown-menu::before {
     @apply content-[''] absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-500/10 to-transparent;
   }
@@ -94,16 +92,7 @@ body {
   .mobile-submenu-closed {
     @apply max-h-0 opacity-0;
   }
-  
-  /* Background image for Tokyo */
-  .image_tokyo {
-    background-image: url('https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2036&q=80');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
 
-  /* Hero text animation styles */
   .hero-text {
     @apply text-white font-bold z-10 drop-shadow-lg;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -121,11 +110,11 @@ body {
   background-repeat: no-repeat;
 }
 
-.dark .image_tokyo {
+.dark .image_tokyo,
+.image_tokyo_dark {
   background-image: url("/japan_night.jpg");
 }
 
-/* Smooth scrolling for animation */
 html {
   scroll-behavior: smooth;
 }

@@ -91,11 +91,11 @@ export default function HeroSection() {
     // Base Y calculation
     const baseY = scrollPosition >= maxScroll 
       ? 8 // Final Y position (in vh)
-      : 40 - (scrollPosition / maxScroll) * 32; // Move from 40vh to 8vh
+      : 40 - (scrollPosition / maxScroll) * 32;
     
     // Adjust for smaller screens
     if (windowWidth < 640) {
-      return baseY < 15 ? 15 : baseY > 45 ? 45 : baseY; // Better positioning on mobile
+      return baseY < 15 ? 15 : baseY > 45 ? 45 : baseY;
     }
     return baseY;
   };
@@ -116,26 +116,16 @@ export default function HeroSection() {
     return `0 ${4 + shadowIntensity * 4}px ${8 + shadowIntensity * 8}px rgba(0, 0, 0, ${0.5 - shadowIntensity * 0.3})`;
   };
 
-  // Dynamic text size class based on screen width
-  const getTextSizeClass = () => {
-    if (windowWidth < 640) {
-      return "text-7xl"; // Larger on mobile (was text-6xl)
-    } else if (windowWidth < 1024) {
-      return "text-7xl"; // Medium on tablets
-    }
-    return "text-9xl"; // Large on desktop
-  };
-
   return (
     <>
       <Navbar navbarTitleOpacity={getNavbarTitleOpacity()} />
       <div 
         ref={heroRef} 
-        className="image_tokyo w-full min-h-screen relative overflow-hidden"
+        className="image_tokyo dark:image_tokyo_dark w-full min-h-screen relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div> {/* Darker overlay for better text visibility */}
+        <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
         <h1 
-          className={`absolute text-white font-bold ${getTextSizeClass()} z-10 drop-shadow-lg hero-text-shadow`}
+          className={`absolute text-white font-bold text-7xl md:text-9xl z-10 drop-shadow-lg hero-text-shadow`}
           style={{
             transform: `scale(${getTextScale()})`,
             transformOrigin: 'left top',
@@ -146,17 +136,28 @@ export default function HeroSection() {
             textShadow: getTextShadow(),
           }}
         >
-          Tokyo
+          <div className="flex flex-col items-start">
+            <span>Tokyo</span>
+            <span className="text-3xl font-normal opacity-90 mt-2">Culture drop</span>
+          </div>
         </h1>
         
         {/* Mobile call-to-action button */}
-        {windowWidth < 768 && (
-          <div className="absolute bottom-16 left-0 right-0 flex justify-center">
-            <button className="px-6 py-3 bg-white/90 text-black font-medium rounded-full hover:bg-white transition-colors shadow-lg">
-              Explore Collection
-            </button>
-          </div>
-        )}
+        <div className="absolute bottom-16 left-0 right-0 flex justify-center md:hidden">
+          <button 
+            onClick={() => {
+              if (heroRef.current) {
+                window.scrollTo({
+                  top: heroRef.current.offsetHeight,
+                  behavior: 'smooth'
+                });
+              }
+            }}
+            className="px-6 py-3 bg-white/90 text-black font-medium rounded-full hover:bg-white transition-colors shadow-lg"
+          >
+            Explore Collection
+          </button>
+        </div>
       </div>
     </>
   );
