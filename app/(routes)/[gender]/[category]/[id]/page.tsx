@@ -1,62 +1,96 @@
+"use client";
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { notFound, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getProduct } from '../../../../utils/products';
+import { useCartContext } from '../../../../../components/CartProvider';
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { gender: string; category: string; id: string } 
-}): Promise<Metadata> {
-  const { gender, category, id } = params;
-  
-  const product = await getProduct(
-    gender as 'men' | 'women', 
-    category, 
-    parseInt(id, 10)
-  );
-  
-  if (!product) {
-    return {
-      title: 'Product Not Found | Tokyo Culture Drop'
-    };
-  }
-  
-  return {
-    title: `${product.name} | Tokyo Culture Drop`,
-    description: `${product.name} from our ${category} collection.`
-  };
+interface ProductPageProps {
+  params: Promise<{ 
+    gender: string; 
+    category: string; 
+    id: string 
+  }>;
 }
 
-export default async function ProductPage({ 
-  params 
-}: { 
-  params: { gender: string; category: string; id: string } 
-}) {
-  const { gender, category, id } = params;
+export default function ProductPage({ params }: ProductPageProps) {
+  const resolvedParams = React.use(params);
+  const { gender, category, id } = resolvedParams;
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { addToCart } = useCartContext();
+  const router = useRouter();
   
   // Validate gender
   if (gender !== 'men' && gender !== 'women') {
-    return notFound();
+    notFound();
   }
   
   // Validate category
   const validCategories = ['folk', 'rock', 'rap', 'jpop'];
   if (!validCategories.includes(category)) {
-    return notFound();
+    notFound();
   }
   
-  const product = await getProduct(
-    gender as 'men' | 'women', 
-    category, 
-    parseInt(id, 10)
-  );
+  // Fetch product data
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const productData = await getProduct(
+          gender as 'men' | 'women', 
+          category, 
+          parseInt(id, 10)
+        );
+        
+        if (!productData) {
+          router.push('/404');
+          return;
+        }
+        
+        setProduct(productData);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        router.push('/404');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProduct();
+  }, [gender, category, id, router]);
   
-  if (!product) {
-    return notFound();
+  if (loading || !product) {
+    return (
+      <div className="min-h-screen pt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="animate-pulse">
+            <div className="h-64 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
+            <div className="h-8 w-1/3 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
+            <div className="h-6 w-1/4 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-8"></div>
+            <div className="h-32 bg-gray-200 dark:bg-zinc-800 rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const formattedCategory = category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1);
+  
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      gender: gender as 'men' | 'women',
+      category
+    });
+    
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
   
   return (
     <div className="min-h-screen pt-20">
@@ -76,7 +110,7 @@ export default async function ProductPage({
             
             {product.images.length > 1 && (
               <div className="mt-4 grid grid-cols-4 gap-4">
-                {product.images.map((image, index) => (
+                {product.images.map((image: string, index: number) => (
                   <div 
                     key={index}
                     className="relative h-24 cursor-pointer overflow-hidden rounded-md"
@@ -126,9 +160,14 @@ export default async function ProductPage({
             <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8">
               <button
                 type="button"
-                className="w-full bg-blue-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                onClick={handleAddToCart}
+                className={`w-full rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white transition-all duration-300 ${
+                  addedToCart 
+                    ? 'bg-green-600 hover:bg-green-700' 
+                    : 'bg-blue-600 hover:bg-blue-700'
+                }`}
               >
-                Add to cart
+                {addedToCart ? 'Added to cart!' : 'Add to cart'}
               </button>
               
               <div className="mt-4 flex justify-center">

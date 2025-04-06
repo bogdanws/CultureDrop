@@ -1,42 +1,53 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+"use client";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ProductGrid from '../../../../components/ProductGrid';
 import { getProducts } from '../../../utils/products';
+import { Product } from '../../../../components/ProductGrid';
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { gender: string; category: string } 
-}): Promise<Metadata> {
-  const { gender, category } = await params;
-  const formattedCategory = category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1);
-  const formattedGender = gender === 'men' ? 'Men' : 'Women';
-  
-  return {
-    title: `${formattedCategory} Collection | ${formattedGender} | Tokyo Culture Drop`,
-    description: `Explore our ${formattedCategory} inspired clothing collection for ${formattedGender} at Tokyo Culture Drop.`
-  };
+interface CategoryPageProps {
+  params: Promise<{ 
+    gender: string; 
+    category: string;
+  }>
 }
 
-export default async function CategoryPage({ 
-  params 
-}: { 
-  params: { gender: string; category: string } 
-}) {
-  const { gender, category } = await params;
+export default function CategoryPage({ params }: CategoryPageProps) {
+  const resolvedParams = React.use(params);
+  const { gender, category } = resolvedParams;
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
   
-  // Validate gender
-  if (gender !== 'men' && gender !== 'women') {
-    return notFound();
-  }
-  
-  // Validate category
-  const validCategories = ['folk', 'rock', 'rap', 'jpop'];
-  if (!validCategories.includes(category)) {
-    return notFound();
-  }
-  
-  const products = await getProducts(gender as 'men' | 'women', category);
+  // Validate gender and category
+  useEffect(() => {
+    // Validate gender
+    if (gender !== 'men' && gender !== 'women') {
+      router.push('/404');
+      return;
+    }
+    
+    // Validate category
+    const validCategories = ['folk', 'rock', 'rap', 'jpop'];
+    if (!validCategories.includes(category)) {
+      router.push('/404');
+      return;
+    }
+    
+    // Fetch products
+    const fetchProducts = async () => {
+      try {
+        const productData = await getProducts(gender as 'men' | 'women', category);
+        setProducts(productData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, [gender, category, router]);
   
   const formattedCategory = category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1);
   const formattedGender = gender === 'men' ? 'Men' : 'Women';
@@ -70,11 +81,23 @@ export default async function CategoryPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex justify-between items-end mb-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {products.length} Products
+            {loading ? "Loading..." : `${products.length} Products`}
           </h2>
         </div>
 
-        {products.length === 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+            {[1, 2, 3, 4].map((index) => (
+              <div key={index} className="animate-pulse">
+                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-800">
+                  <div className="h-80 w-full"></div>
+                </div>
+                <div className="mt-4 h-4 bg-gray-200 dark:bg-zinc-800 rounded"></div>
+                <div className="mt-2 h-6 w-1/3 bg-gray-200 dark:bg-zinc-800 rounded"></div>
+              </div>
+            ))}
+          </div>
+        ) : products.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-xl text-gray-500 dark:text-gray-400">
               No products found in this category.

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import ToggleDarkMode from "./ToggleDarkMode";
 import { FiChevronDown, FiShoppingCart, FiMenu } from "react-icons/fi";
+import { useCartContext } from "./CartProvider";
 
 type ClothingCategory = "jpop" | "rock" | "rap" | "folk";
 
@@ -17,6 +18,8 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
   const [windowWidth, setWindowWidth] = useState(0);
   const [scrollOpacity, setScrollOpacity] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const { getCartCount, isLoading } = useCartContext();
+  const cartCount = getCartCount();
   const womenRef = useRef<HTMLDivElement>(null);
   const menRef = useRef<HTMLDivElement>(null);
   const categories: ClothingCategory[] = ["jpop", "rock", "rap", "folk"];
@@ -162,7 +165,14 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
 
               <Link href="/cart" className="text-black dark:text-white hover:text-blue-800 dark:hover:text-blue-400 transition-colors px-3 py-2 text-sm font-medium">
                 <div className="flex items-center">
-                  <FiShoppingCart className="h-5 w-5 mr-1" />
+                  <div className="relative">
+                    <FiShoppingCart className="h-5 w-5 mr-1" />
+                    {!isLoading && cartCount > 0 && (
+                      <span className="absolute -top-2 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full">
+                        {cartCount}
+                      </span>
+                    )}
+                  </div>
                   Cart
                 </div>
               </Link>
@@ -245,7 +255,14 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
             href="/cart" 
             className="flex items-center px-3 py-2 rounded-none text-base font-medium text-black dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
           >
-            <FiShoppingCart className="h-5 w-5 mr-2" />
+            <div className="relative">
+              <FiShoppingCart className="h-5 w-5 mr-2" />
+              {!isLoading && cartCount > 0 && (
+                <span className="absolute -top-2 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-blue-600 rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </div>
             Cart
           </Link>
         </div>

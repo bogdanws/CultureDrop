@@ -37,12 +37,14 @@ export default function Home() {
                 <Link 
                   href="/men/folk" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Men's Collection
                 </Link>
                 <Link 
                   href="/women/folk" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Women's Collection
                 </Link>
@@ -71,12 +73,14 @@ export default function Home() {
                 <Link 
                   href="/men/rock" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Men's Collection
                 </Link>
                 <Link 
                   href="/women/rock" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Women's Collection
                 </Link>
@@ -105,12 +109,14 @@ export default function Home() {
                 <Link 
                   href="/men/rap" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Men's Collection
                 </Link>
                 <Link 
                   href="/women/rap" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Women's Collection
                 </Link>
@@ -139,12 +145,14 @@ export default function Home() {
                 <Link 
                   href="/men/jpop" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Men's Collection
                 </Link>
                 <Link 
                   href="/women/jpop" 
                   className="px-8 py-3 border border-white/30 bg-black/40 hover:bg-black/60 text-white font-medium rounded-full transition-all duration-200 backdrop-blur-sm"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Women's Collection
                 </Link>

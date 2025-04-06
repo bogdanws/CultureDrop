@@ -8,7 +8,7 @@ export default function RoutesLayout({
 }) {
   return (
     <>
-      <Navbar />
+      <Navbar navbarTitleOpacity={1}/>
       <main>
         {children}
       </main>
