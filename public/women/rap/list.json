@@ -8,13 +8,13 @@
     {
         "id": 2,
         "name": "Dinam panda T-shirt",
-        "images": ["1.jpg"],
+        "images": ["1.webp"],
         "price": 102
     },
     {
         "id": 3,
         "name": "Miami summer T-shirt",
-        "images": ["1.jpg"],
+        "images": ["1.webp"],
         "price": 65
     }
 ]

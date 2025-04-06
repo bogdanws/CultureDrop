@@ -2,20 +2,20 @@
     {
         "id": 1,
         "name": "Skull T-shirt",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.jpg"],
         "price": 148
     },
     {
         "id": 2,
         "name": "HeavyMetal Longsleeve",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.jpg"],
         "price": 235
 
     },
     {
         "id": 3,
         "name": "Skull longsleeve",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.jpg"],
         "price": 265
     },
     {
@@ -33,7 +33,7 @@
     {
         "id": 6,
         "name": "Metalica Hoodie",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.jpg"],
         "price": 215
     },
     {
@@ -45,7 +45,7 @@
     {
         "id": 8,
         "name": "StayLaside shortsleeve shirt ",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.jpg"],
         "price": 155
     }
 ]

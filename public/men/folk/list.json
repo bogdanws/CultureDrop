@@ -2,37 +2,37 @@
     {
         "id": 1,
         "name": "Kodomo Haori Green Kimono",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.webp", "2.webp"],
         "price": 821
     },
     {
         "id": 2,
         "name": "Kodomo Haori Red Kimono",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.webp", "2.webp"],
         "price": 672
     },
     {
         "id": 3,
         "name": "Kodomo Haori Black Kimono",
-        "images": ["1.jpg", "2.jpg"],
+        "images": ["1.webp", "2.webp"],
         "price": 897
     },
     {
         "id": 4,
         "name": "Kodomo Haori DarkBlue Kimono",
-        "images": ["1.jpg","2.jpg"],
+        "images": ["1.webp","2.webp"],
         "price": 121
     },
     {
         "id": 5,
         "name": "Kagome Cedar Wooden Men’s Geta Sandals",   
-        "images": ["1.jpg"],
+        "images": ["1.webp"],
         "price": 132
     },
     {
         "id": 6,
         "name": "Asanoha Cedar Wooden Men’s Geta Sandals",
-        "images": ["1.jpg"],
+        "images": ["1.webp"],
         "price": 141
     } 
 ]

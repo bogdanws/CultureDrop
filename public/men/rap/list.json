@@ -8,13 +8,13 @@
     {   
         "id": 2,
         "name": "Tenshi Black Jacket",
-        "images": ["1.jpg"],
+        "images": ["1.webp"],
         "price": 102
     },
     {
         "id": 3,
         "name": "Tenshi Black streetwear jacket",
-        "images": ["1.jpg"],
+        "images": ["1.webp"],
         "price": 65
 
     }
