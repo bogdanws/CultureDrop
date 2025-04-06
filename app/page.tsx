@@ -1,4 +1,5 @@
 import HeroSection from "../components/HeroSection";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -45,6 +46,8 @@ export default function Home() {
           bringing a unique harmony of style to your everyday wardrobe.
         </p>
       </div>
+      
+      <Footer />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import ToggleDarkMode from "./ToggleDarkMode";
 import { FiChevronDown, FiShoppingCart, FiMenu } from "react-icons/fi";
 
-type ClothingCategory = "J-pop" | "Rock" | "Heavy Metal" | "Folk music";
+type ClothingCategory = "jpop" | "rock" | "rap" | "folk";
 
 interface NavbarProps {
   navbarTitleOpacity?: number;
@@ -19,7 +19,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const womenRef = useRef<HTMLDivElement>(null);
   const menRef = useRef<HTMLDivElement>(null);
-  const categories: ClothingCategory[] = ["J-pop", "Rock", "Heavy Metal", "Folk music"];
+  const categories: ClothingCategory[] = ["jpop", "rock", "rap", "folk"];
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -128,10 +128,10 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                   {categories.map((category) => (
                     <Link
                       key={`women-${category}`}
-                      href={`/women/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/women/${category}`}
                       className="dropdown-menu-item"
                     >
-                      {category}
+                      {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
                   ))}
                 </div>
@@ -151,10 +151,10 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                   {categories.map((category) => (
                     <Link
                       key={`men-${category}`}
-                      href={`/men/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/men/${category}`}
                       className="dropdown-menu-item"
                     >
-                      {category}
+                      {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
                   ))}
                 </div>
@@ -207,10 +207,10 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                 {categories.map((category) => (
                   <Link
                     key={`mobile-women-${category}`}
-                    href={`/women/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/women/${category}`}
                     className="block px-3 py-2 rounded-none text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                   >
-                    {category}
+                    {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                   </Link>
                 ))}
               </div>
@@ -231,10 +231,10 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                 {categories.map((category) => (
                   <Link
                     key={`mobile-men-${category}`}
-                    href={`/men/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/men/${category}`}
                     className="block px-3 py-2 rounded-none text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                   >
-                    {category}
+                    {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                   </Link>
                 ))}
               </div>
