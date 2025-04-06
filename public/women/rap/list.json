@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Orange top",
+        "images": ["1.jpg"],
+        "price": 98
+    },
+    {
+        "id": 2,
+        "name": "Dinam panda T-shirt",
+        "images": ["1.jpg"],
+        "price": 102
+    },
+    {
+        "id": 3,
+        "name": "Miami summer T-shirt",
+        "images": ["1.jpg"],
+        "price": 65
+    }
+]
