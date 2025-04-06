@@ -104,7 +104,7 @@ body {
 }
 
 .image_tokyo {
-  background-image: url("/japan_day.jpg");
+  background-image: url("/hero/japan_day.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -112,7 +112,7 @@ body {
 
 .dark .image_tokyo,
 .image_tokyo_dark {
-  background-image: url("/japan_night.jpg");
+  background-image: url("/hero/japan_night.jpg");
 }
 
 html {

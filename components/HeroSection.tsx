@@ -1,22 +1,72 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import Navbar from "./Navbar";
 
 export default function HeroSection() {
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [navbarOpacity, setNavbarOpacity] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLHeadingElement>(null);
+  
+  // Setup scroll animation with framer-motion
+  const { scrollY } = useScroll();
   const maxScroll = 500; // The scroll position at which the animation completes
+  
+  // Text transformations based on scroll
+  const textScale = useTransform(
+    scrollY, 
+    [0, maxScroll], 
+    [1, 0.3]
+  );
+  
+  const textY = useTransform(
+    scrollY, 
+    [0, maxScroll], 
+    ['40vh', '8vh']
+  );
+  
+  const textOpacity = useTransform(
+    scrollY, 
+    [0, maxScroll/2, maxScroll], 
+    [1, 1, 0]
+  );
+  
+  const motionNavbarTitleOpacity = useTransform(
+    scrollY,
+    [0, maxScroll],
+    [0, 1]
+  );
+  
+  // Parallax effect for bottom image
+  const bottomImageScale = useTransform(
+    scrollY,
+    [0, maxScroll],
+    [1, 1.15]
+  );
+  
+  // Move the image up slightly as it scales to prevent gaps
+  const bottomImageY = useTransform(
+    scrollY,
+    [0, maxScroll],
+    ['0%', '-5%']
+  );
+  
+  // Update the navbar opacity state when motion value changes
+  useMotionValueEvent(motionNavbarTitleOpacity, "change", (latest) => {
+    setNavbarOpacity(latest);
+  });
+  
+  const textShadow = useTransform(
+    scrollY,
+    [0, 200],
+    ['0 4px 8px rgba(0, 0, 0, 0.5)', '0 8px 16px rgba(0, 0, 0, 0.2)']
+  );
 
   useEffect(() => {
     // Set initial window width
     setWindowWidth(window.innerWidth);
-
-    const handleScroll = () => {
-      const position = window.scrollY;
-      setScrollPosition(position);
-    };
 
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -50,100 +100,94 @@ export default function HeroSection() {
       }*/
     };
 
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
     window.addEventListener('wheel', handleWheel, { passive: false });
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('wheel', handleWheel);
     };
   }, [isScrolling]);
 
-  // Calculate the transform values based on scroll position
-  const getTextScale = () => {
-    // Base scale calculation
-    const baseScale = scrollPosition >= maxScroll 
-      ? 0.3 // Final size (30% of original)
-      : 1 - (scrollPosition / maxScroll) * 0.7; // Gradual scaling from 1 to 0.3
-    
-    // Adjust based on screen width
-    if (windowWidth < 640) { // Small screens
-      return baseScale * 0.7; // Slightly larger initial size on mobile (was 0.6)
-    } else if (windowWidth < 1024) { // Medium screens
-      return baseScale * 0.8; // Slightly smaller initial size on tablets
-    }
-    return baseScale; // Default for large screens
-  };
-
+  // Adjust position based on screen size
   const getTextX = () => {
-    // Responsive positioning based on screen width
     if (windowWidth < 640) {
-      return 8; // More centered on mobile (was 10)
+      return '8%';
     } else if (windowWidth < 1024) {
-      return 12; // Slightly adjusted for tablets
+      return '12%';
     }
-    return 15; // Default for large screens
-  };
-
-  const getTextY = () => {
-    // Base Y calculation
-    const baseY = scrollPosition >= maxScroll 
-      ? 8 // Final Y position (in vh)
-      : 40 - (scrollPosition / maxScroll) * 32;
-    
-    // Adjust for smaller screens
-    if (windowWidth < 640) {
-      return baseY < 15 ? 15 : baseY > 45 ? 45 : baseY;
-    }
-    return baseY;
-  };
-
-  const getOpacity = () => {
-    if (scrollPosition <= maxScroll / 2) return 1;
-    return 1 - ((scrollPosition - maxScroll / 2) / (maxScroll / 2));
-  };
-
-  // Navbar title opacity (inverse of hero title)
-  const getNavbarTitleOpacity = () => {
-    return Math.min(scrollPosition / maxScroll, 1);
-  };
-
-  // Text shadow intensity based on scroll
-  const getTextShadow = () => {
-    const shadowIntensity = Math.min(scrollPosition / 200, 1);
-    return `0 ${4 + shadowIntensity * 4}px ${8 + shadowIntensity * 8}px rgba(0, 0, 0, ${0.5 - shadowIntensity * 0.3})`;
+    return '15%'; // Default for large screens
   };
 
   return (
     <>
-      <Navbar navbarTitleOpacity={getNavbarTitleOpacity()} />
+      <Navbar navbarTitleOpacity={navbarOpacity} />
       <div 
         ref={heroRef} 
-        className="image_tokyo dark:image_tokyo_dark w-full min-h-screen relative overflow-hidden"
+        className="w-full min-h-screen relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
-        <h1 
-          className={`absolute text-white font-bold text-7xl md:text-9xl z-10 drop-shadow-lg hero-text-shadow`}
+        {/* Parallax container */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Top image - static */}
+          <div className="absolute inset-0 z-10">
+            <img 
+              src="/hero/light/top.png" 
+              className="w-full h-full object-cover block dark:hidden"
+              alt="Tokyo Day Top" 
+            />
+            <img 
+              src="/hero/dark/top.png" 
+              className="w-full h-full object-cover hidden dark:block"
+              alt="Tokyo Night Top" 
+            />
+          </div>
+          
+          {/* Bottom image - scales on scroll */}
+          <motion.div 
+            className="absolute inset-0"
+            style={{ 
+              scale: bottomImageScale, 
+              y: bottomImageY,
+              transformOrigin: 'center center',
+            }}
+          >
+            <img 
+              src="/hero/light/bottom.png" 
+              className="w-full h-full object-cover block dark:hidden"
+              alt="Tokyo Day Bottom" 
+            />
+            <img 
+              src="/hero/dark/bottom.png" 
+              className="w-full h-full object-cover hidden dark:block"
+              alt="Tokyo Night Bottom" 
+            />
+          </motion.div>
+        </div>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/30 dark:bg-black/50 z-20"></div>
+        
+        {/* Hero text */}
+        <motion.h1 
+          ref={textRef}
+          className="absolute text-white font-bold text-7xl md:text-9xl z-30 drop-shadow-lg"
           style={{
-            transform: `scale(${getTextScale()})`,
+            scale: textScale,
+            top: textY,
+            left: getTextX(),
+            opacity: textOpacity,
+            textShadow,
             transformOrigin: 'left top',
-            left: `${getTextX()}%`,
-            top: `${getTextY()}vh`,
-            opacity: getOpacity(),
-            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
-            textShadow: getTextShadow(),
           }}
         >
           <div className="flex flex-col items-start">
             <span>Tokyo</span>
             <span className="text-3xl font-normal opacity-90 mt-2">Culture drop</span>
           </div>
-        </h1>
+        </motion.h1>
         
         {/* Mobile call-to-action button */}
-        <div className="absolute bottom-16 left-0 right-0 flex justify-center md:hidden">
+        <div className="absolute bottom-16 left-0 right-0 flex justify-center md:hidden z-30">
           <button 
             onClick={() => {
               if (heroRef.current) {
