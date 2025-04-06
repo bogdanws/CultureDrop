@@ -94,7 +94,7 @@ export default function CartPage() {
                               'Music Disc'
                             ) : (
                               <>
-                                {item.gender.charAt(0).toUpperCase() + item.gender.slice(1)} /
+                                {item.gender.charAt(0).toUpperCase() + item.gender.slice(1) + " / "}
                                 {item.category === 'jpop' ? 'J-Pop' : item.category.charAt(0).toUpperCase() + item.category.slice(1)}
                               </>
                             )}
