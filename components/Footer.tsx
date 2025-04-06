@@ -16,13 +16,13 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a href="https://instagram.com" className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400" aria-label="Instagram">
-                <FiInstagram className="h-5 w-5" />
+                <FiInstagram aria-hidden="true" className="h-5 w-5" />
               </a>
               <a href="https://twitter.com" className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400" aria-label="Twitter">
-                <FiTwitter className="h-5 w-5" />
+                <FiTwitter aria-hidden="true" className="h-5 w-5" />
               </a>
               <a href="https://github.com" className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400" aria-label="GitHub">
-                <FiGithub className="h-5 w-5" />
+                <FiGithub aria-hidden="true" className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-4">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                <FiMail className="h-4 w-4 mr-2" />
+                <FiMail aria-hidden="true" className="h-4 w-4 mr-2" />
                 <a href="mailto:info@tokyoculturedrop.com" className="hover:text-blue-600 dark:hover:text-blue-400">
                   info@tokyoculturedrop.com
                 </a>

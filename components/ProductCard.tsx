@@ -26,9 +26,14 @@ export default function ProductCard({ id, name, price, images, gender, category 
   };
 
   return (
-    <Link href={productUrl}>
+    <Link
+      href={productUrl}
+      aria-label={`View details for ${name}`}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
+    >
       <div 
-        className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl"
+        className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -46,7 +51,7 @@ export default function ProductCard({ id, name, price, images, gender, category 
           <h3 className="text-sm font-medium text-gray-900 dark:text-white">{name}</h3>
           <div className="mt-1 flex justify-between items-center">
             <p className="text-lg font-bold text-gray-900 dark:text-white">${price}</p>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300">
               <span className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:text-blue-300">
                 View
               </span>
