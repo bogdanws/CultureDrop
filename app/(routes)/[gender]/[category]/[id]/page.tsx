@@ -3,6 +3,8 @@ import { Metadata } from 'next';
 import React, { useEffect, useState } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import { getProduct } from '../../../../utils/products';
 import { useCartContext } from '../../../../../components/CartProvider';
 
@@ -21,6 +23,8 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [loading, setLoading] = useState(true);
   const [addedToCart, setAddedToCart] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string>('M');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(0); // -1 for left, 1 for right
   const { addToCart } = useCartContext();
   const router = useRouter();
   
@@ -96,35 +100,121 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   
+  const handlePrevImage = () => {
+    if (product?.images.length > 1) {
+      setSlideDirection(-1); // Slide from left
+      setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
+    }
+  };
+
+  const handleNextImage = () => {
+    if (product?.images.length > 1) {
+      setSlideDirection(1); // Slide from right
+      setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
+    }
+  };
+
+  const handleThumbnailClick = (index: number) => {
+    // Determine direction based on current and new index
+    const direction = index > currentImageIndex ? 1 : -1;
+    setSlideDirection(direction);
+    setCurrentImageIndex(index);
+  };
+
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-12">
           {/* Image gallery */}
           <div className="flex flex-col">
-            <div className="overflow-hidden rounded-lg bg-gray-100 dark:bg-zinc-800">
-              <div className="relative h-[450px] w-full">
-                <img
-                  src={`/${gender}/${category}/${product.id}/${product.images[0]}`}
-                  alt={product.name}
-                  className="h-full w-full object-cover object-center"
-                />
+            <div className="overflow-hidden rounded-lg bg-gray-100 dark:bg-zinc-800 relative">
+              <div className="relative h-[450px] sm:h-[550px] w-full overflow-hidden">
+                <AnimatePresence mode="popLayout" custom={slideDirection}>
+                  <motion.img
+                    key={currentImageIndex}
+                    custom={slideDirection}
+                    src={`/${gender}/${category}/${product.id}/${product.images[currentImageIndex]}`}
+                    alt={product.name}
+                    className="h-full w-full object-contain object-center"
+                    variants={{
+                      enter: (direction: number) => ({
+                        x: direction > 0 ? 300 : -300,
+                        opacity: 0.3,
+                        scale: 0.9
+                      }),
+                      center: {
+                        x: 0,
+                        opacity: 1,
+                        scale: 1
+                      },
+                      exit: (direction: number) => ({
+                        x: direction > 0 ? -300 : 300,
+                        opacity: 0,
+                        scale: 0.9
+                      })
+                    }}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                      duration: 0.05
+                    }}
+                  />
+                </AnimatePresence>
               </div>
+              
+              {product.images.length > 1 && (
+                <>
+                  <button 
+                    onClick={handlePrevImage}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white dark:bg-zinc-700 rounded-full p-2 shadow-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-600 transition-colors duration-200"
+                    aria-label="Previous image"
+                  >
+                    <IoChevronBackOutline size={20} />
+                  </button>
+                  <button 
+                    onClick={handleNextImage}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-zinc-700 rounded-full p-2 shadow-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-600 transition-colors duration-200"
+                    aria-label="Next image"
+                  >
+                    <IoChevronForwardOutline size={20} />
+                  </button>
+                </>
+              )}
             </div>
             
             {product.images.length > 1 && (
               <div className="mt-4 grid grid-cols-4 gap-4">
                 {product.images.map((image: string, index: number) => (
-                  <div 
+                  <motion.div
                     key={index}
-                    className="relative h-24 cursor-pointer overflow-hidden rounded-md"
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`relative h-24 cursor-pointer overflow-hidden rounded-md transition-all duration-300 ${
+                      currentImageIndex === index
+                        ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/30'
+                        : 'hover:shadow-md'
+                    }`}
+                    onClick={() => handleThumbnailClick(index)}
                   >
-                    <img 
-                      src={`/${gender}/${category}/${product.id}/${image}`} 
-                      alt="" 
-                      className="h-full w-full object-cover object-center" 
+                    <img
+                      src={`/${gender}/${category}/${product.id}/${image}`}
+                      alt=""
+                      className="h-full w-full object-contain object-center"
                     />
-                  </div>
+                    {currentImageIndex === index && (
+                      <motion.div
+                        className="absolute inset-0 bg-blue-500/10 border-2 border-blue-500"
+                        layoutId="selectedThumbnail"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </motion.div>
                 ))}
               </div>
             )}

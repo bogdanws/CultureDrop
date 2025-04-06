@@ -38,11 +38,11 @@ export default function ProductCard({ id, name, price, images, gender, category 
         onMouseLeave={handleMouseLeave}
       >
         <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100 dark:bg-zinc-800">
-          <div className="relative h-80 w-full">
+          <div className="relative h-96 sm:h-80 w-full">
             <img
               src={`/${gender}/${category}/${id}/${images[currentImageIndex]}`}
               alt={name}
-              className="h-full w-full object-cover object-center transition-opacity duration-300"
+              className="h-full w-full object-contain object-center transition-opacity duration-300"
             />
           </div>
         </div>

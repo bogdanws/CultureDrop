@@ -73,6 +73,12 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const closeMenus = () => {
+    setWomenMenuOpen(false);
+    setMenMenuOpen(false);
+    setMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (womenRef.current && !womenRef.current.contains(event.target as Node)) {
@@ -138,6 +144,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                       href={`/women/${category}`}
                       className="dropdown-menu-item"
                       role="menuitem"
+                      onClick={closeMenus}
                     >
                       {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
@@ -166,6 +173,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                       href={`/men/${category}`}
                       className="dropdown-menu-item"
                       role="menuitem"
+                      onClick={closeMenus}
                     >
                       {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
@@ -241,6 +249,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                     key={`mobile-women-${category}`}
                     href={`/women/${category}`}
                     className="block px-3 py-2 rounded-none text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                    onClick={closeMenus}
                   >
                     {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                   </Link>
@@ -269,6 +278,7 @@ export default function Navbar({ navbarTitleOpacity = 0 }: NavbarProps) {
                     key={`mobile-men-${category}`}
                     href={`/men/${category}`}
                     className="block px-3 py-2 rounded-none text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                    onClick={closeMenus}
                   >
                     {category === 'jpop' ? 'J-Pop' : category.charAt(0).toUpperCase() + category.slice(1)}
                   </Link>
