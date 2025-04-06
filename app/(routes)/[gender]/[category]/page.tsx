@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ProductGrid from '../../../../components/ProductGrid';
-import { getProducts } from '../../../utils/products';
+import { getProducts } from '@/utils/products';
 import { Product } from '../../../../components/ProductGrid';
 
 interface CategoryPageProps {

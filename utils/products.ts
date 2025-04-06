@@ -1,7 +1,3 @@
-// Mock product data since we can't use fs in the browser
-import { Product } from '../../components/ProductGrid';
-
-// Each category will be loaded on demand from the JSON files
 export async function getProducts(gender: 'men' | 'women', category: string): Promise<Product[]> {
   try {
     // Fetch the data from the corresponding JSON file
@@ -27,4 +23,11 @@ export async function getProduct(gender: 'men' | 'women', category: string, id: 
     console.error('Error loading product:', error);
     return null;
   }
-} 
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  images: string[];
+}

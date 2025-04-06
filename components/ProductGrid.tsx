@@ -1,12 +1,6 @@
 "use client";
 import ProductCard from "./ProductCard";
-
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  images: string[];
-}
+import {Product} from "@/utils/products";
 
 interface ProductGridProps {
   products: Product[];

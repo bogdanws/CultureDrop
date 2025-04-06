@@ -5,7 +5,7 @@ import { notFound, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
-import { getProduct } from '../../../../utils/products';
+import { getProduct } from '@/utils/products';
 import { useCartContext } from '../../../../../components/CartProvider';
 
 interface ProductPageProps {
