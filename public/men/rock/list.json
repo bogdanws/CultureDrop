@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "name": "Skull T-shirt",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 148
+    },
+    {
+        "id": 2,
+        "name": "HeavyMetal Longsleeve",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 235
+
+    },
+    {
+        "id": 3,
+        "name": "Skull longsleeve",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 265
+    },
+    {
+        "id": 4,
+        "name": "Punk Tight leather jeans",
+        "images": ["1.jpg"],
+        "price": 195
+    },
+    {
+        "id": 5,
+        "name": "Punk belt trousers",
+        "images": ["1.jpg"],
+        "price": 185
+    },
+    {
+        "id": 6,
+        "name": "Metalica Hoodie",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 215
+    },
+    {
+        "id": 7,
+        "name": "LionHead black hoodie",
+        "images": ["1.jpg"],
+        "price": 175
+    },
+    {
+        "id": 8,
+        "name": "StayLaside shortsleeve shirt ",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 155
+    }
+]

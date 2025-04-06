@@ -1,0 +1,39 @@
+[
+    {
+        "id": 1,
+        "name": "Kodomo Haori Yellow Kimono",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 821
+    },
+    {
+        "id": 2,
+        "name": "Kodomo Haori Green Kimono",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 672
+    },
+    {   
+        "id": 3,
+        "name": "Kodomo Haori Orange Kimono",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 897
+
+    },
+    {
+        "id": 4,
+        "name": "Shima Tea Bamboo Handle Linen Tote",
+        "images": ["1.jpg"],
+        "price": 121
+    },
+    {
+        "id": 5,
+        "name": "White Ougi Cotton-Canvas Mini Tote",
+        "images": ["1.jpg"],
+        "price": 132
+    },
+    {
+        "id": 6,
+        "name": "Blue Koi Azuma Tote",
+        "images": ["1.jpg"],
+        "price": 141
+    }
+]

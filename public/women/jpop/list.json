@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Lolita WhiteTop",
+        "images": ["1.jpg"],
+        "price": 101
+    },
+    {
+        "id": 2,
+        "name": "Prise White Blouse",
+        "images": ["1.jpg","2.jpg"],
+        "price": 210
+    },
+    {
+        "id": 3,
+        "name": "Loli black HeelShoes",
+        "images": ["1.jpg"],
+        "price": 121
+    },
+    {
+        "id": 4,
+        "name": "Red RidingHood Miniskirt",
+        "images": ["1.jpg"],
+        "price": 131
+    }
+]

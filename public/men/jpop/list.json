@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "W Black T-shirt",
+        "images": ["1.jpg"],
+        "price": 101
+    },
+    {   
+        "id": 2,
+        "name": "Brown classic trousers",
+        "images": ["1.jpg"],
+        "price": 210
+    },
+    {   
+        "id": 3,
+        "name": "Gray classic trousers",
+        "images": ["1.jpg"],
+        "price": 121
+    },
+    {
+        "id": 4,
+        "name": "Blue Swater",
+        "images": ["1.jpg"],
+        "price": 131
+
+    }
+]

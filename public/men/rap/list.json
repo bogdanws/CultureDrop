@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "name": "Tech Kitsuky Jaket",
+        "images": ["1.jpg"],
+        "price": 98
+    },
+    {   
+        "id": 2,
+        "name": "Tenshi Black Jacket",
+        "images": ["1.jpg"],
+        "price": 102
+    },
+    {
+        "id": 3,
+        "name": "Tenshi Black streetwear jacket",
+        "images": ["1.jpg"],
+        "price": 65
+
+    }
+]

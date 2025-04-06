@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "name": "Victorian style dress",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 231
+    },
+    {
+        "id": 2,
+        "name": "Gothic dress",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 321
+    },
+    {
+        "id": 3,
+        "name": "Punk style dress",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 141
+    },
+    {
+        "id": 4,
+        "name": "Red velvet corset",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 153
+    },
+    {
+        "id": 5,
+        "name": "Vamp black jacket",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 87
+    },
+    {
+        "id": 6,
+        "name": "Order duke dress",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 65
+    },
+    {
+        "id": 7,
+        "name": "Dark dolores longsleeve",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 86
+    },
+    {
+        "id": 8,
+        "name": "Purple gotica top",
+        "images": ["1.jpg", "2.jpg"],
+        "price": 97
+    }
+    
+
+]
