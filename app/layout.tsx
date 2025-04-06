@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Zen_Antique } from "next/font/google";
 import "./globals.css";
 import CartProvider from "../components/CartProvider";
 
@@ -12,6 +12,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const zenAntique = Zen_Antique({
+  variable: "--font-zen-antique",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+
 
 export const metadata: Metadata = {
   title: "Tokyo CultureDrop",

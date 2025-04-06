@@ -181,8 +181,8 @@ export default function HeroSection() {
           }}
         >
           <div className="flex flex-col items-start">
-            <span>Tokyo</span>
-            <span className="text-3xl font-normal opacity-90 mt-2">Culture drop</span>
+            <span className="font-[Zen_Antique]">Tokyo</span>
+            <span className="text-3xl font-normal opacity-90 mt-2">CultureDrop</span>
           </div>
         </motion.h1>
         
