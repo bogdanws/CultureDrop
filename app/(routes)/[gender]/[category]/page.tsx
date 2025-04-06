@@ -23,7 +23,7 @@ export default async function CategoryPage({
 }: { 
   params: { gender: string; category: string } 
 }) {
-  const { gender, category } = params;
+  const { gender, category } = await params;
   
   // Validate gender
   if (gender !== 'men' && gender !== 'women') {
@@ -47,7 +47,7 @@ export default async function CategoryPage({
       <div className="relative h-80 md:h-96 w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"></div>
         <img 
-          src={`/images/${category}.jpg`} 
+          src={`/images/${gender}/${category}.jpg`} 
           alt={`${formattedCategory} Collection`} 
           className="w-full h-full object-cover"
         />
@@ -56,8 +56,11 @@ export default async function CategoryPage({
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               {formattedCategory} <span className="block md:inline">{formattedGender}'s Collection</span>
             </h1>
-            <p className="text-xl text-white/80 max-w-xl">
-              Unique designs inspired by {formattedCategory.toLowerCase()} culture, crafted for style and comfort.
+            <p className="text-xl text-white opacity-90 max-w-2xl">
+              {category === 'folk' && 'Traditional Japanese aesthetics reimagined for modern wardrobes. Embrace the timeless beauty of folk-inspired designs.'}
+              {category === 'rock' && 'Bold, edgy styles influenced by Tokyo\'s vibrant rock scene. Make a statement with these powerful pieces.'}
+              {category === 'rap' && 'Street-smart fashion inspired by Japan\'s dynamic hip-hop culture. Urban coolness meets Tokyo\'s unique style.'}
+              {category === 'jpop' && 'Colorful and playful designs reflecting the energy of J-Pop culture. Bring some kawaii vibes to your wardrobe.'}
             </p>
           </div>
         </div>
